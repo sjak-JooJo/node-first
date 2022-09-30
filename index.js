@@ -1,6 +1,12 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
+var cors = require('cors');
+
+
+
+
+app.use(cors());
 
 
 
@@ -29,6 +35,15 @@ app.get('/user/:id', (req, res) =>{
     const user = users.find(u => u.id === id);
 
     res.send (user);
+})
+
+
+app.get('/fruits', (req, res) =>{
+    res.send(['mango', 'apple', 'oranges']);
+})
+
+app.get('/fruits/mango/fazle',(req, res)  =>{
+    res.send('sour soud fazle flavor');
 })
 
 app.listen(port, () =>{
