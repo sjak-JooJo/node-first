@@ -25,7 +25,14 @@ const users = [
     {id:7, name:'sonali', email: 'sonali@gmail.com', phone: '012200202002'},
 ]
 
+/* app.get('/users', (req, res) =>{
+    res.send(users);
+}) */
+
+
+// filter by serach query parameter
 app.get('/users', (req, res) => {
+    
     if(req.query.name){
         const search = req.query.name.toLowerCase();
         const matched = users.filter(user => user.name.toLowerCase().includes(search));
