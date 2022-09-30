@@ -7,6 +7,7 @@ var cors = require('cors');
 
 
 app.use(cors());
+app.use(express.json());
 
 
 
@@ -25,7 +26,16 @@ const users = [
 ]
 
 app.get('/users', (req, res) => {
-    res.send(users);
+    if(req.query.name){
+        const search = req.query.name.toLowerCase();
+        const matched = users.filter(user => user.name.toLowerCase().includes(search));
+        res.send(matched);
+    }
+    else{
+        res.send(users);
+    }
+    console.log('Query', req.query);
+    
 })
 
 
@@ -35,6 +45,14 @@ app.get('/user/:id', (req, res) =>{
     const user = users.find(u => u.id === id);
 
     res.send (user);
+});
+
+app.post('/user', (req, res)=>{
+    console.log('request',req.body);
+    const user = req.body;
+    user.id = users.length + 1;
+    users.push(user);
+    res.send(user);
 })
 
 
